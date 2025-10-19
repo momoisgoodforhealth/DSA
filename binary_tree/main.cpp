@@ -27,17 +27,46 @@ BstNode * GetNewNode (int data)
 
 BstNode* Insert(BstNode* root, int data)
 {
-  if (root = NULL)
+  if (root == NULL)
   {
     root = GetNewNode(data);
-    return root;
   }
+  else if (data <= root->data)
+  {
+     root->left = Insert(root->left, data);
+  }
+  else
+  {
+    root->right = Insert(root->right, data);
+  }
+
+  return root;
 };
 
-int main()
+bool Search(BstNode *root, int data)
 {
-  BstNode* root = NULL; // pointer to root node;
-  Insert(root,15);
-  Insert(root,10);
-  Insert(root,20);
+  if (root == NULL) return false;
+
+  if (root->data == data) return true;
+  else if (data < root->data)
+  {
+    return Search(root->left, data);
+  }
+  else if (data > root->data)
+  {
+    return Search(root->right, data);
+  }
+}
+
+    int main()
+{
+  BstNode* root = NULL; // pointer to root node
+  root = Insert(root,15);
+  root = Insert(root,10);
+  root = Insert(root,20);
+  int number;
+  cout<<"Enter Number to be Searched\n";
+  cin>>number;
+  if (Search(root, number)) cout<<"Found\n";
+  else cout << "Not Found\n";
 }
